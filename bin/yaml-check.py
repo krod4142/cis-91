@@ -4,3 +4,4 @@ import sys
 
 data = yaml.load(sys.stdin.read(), Loader=yaml.Loader)
 pprint.pprint(data, compact=False, sort_dicts=False)
+
