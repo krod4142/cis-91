@@ -1,3 +1,20 @@
+variable "credentials_file" { 
+  default = "../secrets/cis-91.key" 
+}
+
+variable "project" {
+  default = "rodriguez-364418"
+}
+
+variable "region" {
+  default = "us-central1"
+}
+
+variable "zone" {
+  default = "us-central1-c"
+}
+
+
 terraform {
   required_providers {
     google = {
