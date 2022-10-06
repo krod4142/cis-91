@@ -27,9 +27,9 @@ terraform {
 provider "google" {
   credentials = file("/home/kyr4142/rodriguez-364418-f0b1d1a65e7c.json")
 
-  project = "rodriguez-364418"
-  region  = "us-central1"
-  zone    = "us-central1-c"
+  region  = var.region
+  zone    = var.zone 
+  project = var.project
 }
 
 resource "google_compute_network" "vpc_network" {
@@ -37,13 +37,12 @@ resource "google_compute_network" "vpc_network" {
 }
 
 resource "google_compute_instance" "vm_instance" {
-  name         = "terraform-instance"
-  machine_type = "f1-micro"
-  tags         = ["web", "dev"]
+  name         = "cis91"
+  machine_type = "e2-micro"
 
   boot_disk {
     initialize_params {
-      image = "cos-cloud/cos-stable"
+      image = "ubuntu-os-cloud/ubuntu-2004-lts"
     }
   }
 
@@ -64,6 +63,6 @@ resource "google_compute_firewall" "default-firewall" {
   source_ranges = ["0.0.0.0/0"]
 }
 
-output "ip" {
-  value = google_compute_instance.vm_instance.network_interface.0.network_ip
+output "external-ip" {
+  value = google_compute_instance.vm_instance.network_interface[0].access_config[0].nat_ip
 }
