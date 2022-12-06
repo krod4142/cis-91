@@ -33,7 +33,7 @@ provider "google" {
 }
 
 resource "google_compute_network" "vpc_network" {
-  name = "terraform-network"
+  name = "terraform-network1"
 }
 
 resource "google_compute_instance" "webservers" {
