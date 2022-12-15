@@ -12,7 +12,7 @@
           - python3-venv
           - nginx
 
-- hosts: gcp_role_web
+ - hosts: gcp_role_web
   name: Install Apache on the web servers
   become: yes
   tasks:
