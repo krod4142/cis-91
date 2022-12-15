@@ -29,3 +29,4 @@
         insertafter: <body> 
         block: | 
           <h1>This is the server {{ inventory_hostname }}</h1>
+          keyed_groups:
