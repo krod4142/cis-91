@@ -107,6 +107,11 @@ resource "google_compute_backend_service" "webservice" {
   ]
 }
 
+resource "google_compute_url_map" "default" {
+  name            = "my-site"
+  default_service = google_compute_backend_service.webservice.id
+}
+
 output "external-ip" {
   value = google_compute_instance.webservers[*].network_interface[0].access_config[0].nat_ip
 }
