@@ -86,9 +86,9 @@ resource "google_compute_instance_group" "webservers" {
 
   instances = google_compute_instance.webservers[*].self_link
 
-  named_port {
-    name = "http"
-    port = "80"
+  http_health_check {
+    request_path = "/health.html"
+    port = 80
   }
 }
 
