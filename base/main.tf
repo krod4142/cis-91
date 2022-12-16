@@ -121,6 +121,17 @@ resource "google_compute_global_address" "default" {
   name = "external-address"
 }
 
+resource "google_compute_global_forwarding_rule" "default" {
+  name                  = "forward-application"
+  ip_protocol           = "TCP"
+  load_balancing_scheme = "EXTERNAL"
+  port_range            = "80"
+  target                = google_compute_target_http_proxy.default.id
+  ip_address            = google_compute_global_address.default.address
+}
+
 output "external-ip" {
   value = google_compute_instance.webservers[*].network_interface[0].access_config[0].nat_ip
 }
+
+
