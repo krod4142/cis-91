@@ -76,6 +76,7 @@ resource "google_compute_health_check" "webservers" {
   check_interval_sec = 1
 
   http_health_check {
+    request_path = "/health.html"
     port = 80
   }
 }
@@ -86,10 +87,24 @@ resource "google_compute_instance_group" "webservers" {
 
   instances = google_compute_instance.webservers[*].self_link
 
-  http_health_check {
-    request_path = "/health.html"
-    port = 80
+  named_port {
+    name = "http"
+    port = "80"
   }
+}
+
+resource "google_compute_backend_service" "webservice" {
+  name      = "web-service"
+  port_name = "http"
+  protocol  = "HTTP"
+
+  backend {
+    group = google_compute_instance_group.webservers.id
+  }
+
+  health_checks = [
+    google_compute_health_check.webservers.id
+  ]
 }
 
 output "external-ip" {
