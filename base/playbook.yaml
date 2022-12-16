@@ -141,3 +141,4 @@
         dest: /var/www/html/LocalSettings.php
         content: "{{ hostvars[groups['gcp_name_web0'][0]]['localsettings']['content'] | b64decode }}"
       when: hostvars[groups['gcp_name_web0'][0]]['localsettings'] is defined
+
