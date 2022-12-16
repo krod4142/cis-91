@@ -37,8 +37,9 @@ resource "google_compute_network" "vpc_network" {
   auto_create_subnetworks = "true"
 }
 
-resource "google_compute_instance" "vm_instance" {
-  name         = "cis91"
+resource "google_compute_instance" "webservers" {
+  count        = 2
+  name         = "web${count.index}"
   machine_type = "e2-micro"
 
   boot_disk {
@@ -51,6 +52,10 @@ resource "google_compute_instance" "vm_instance" {
     network = google_compute_network.vpc_network.name
     access_config {
     }
+  }
+
+  labels = {
+    role: "web"
   }
 }
 
