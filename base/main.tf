@@ -25,7 +25,7 @@ terraform {
 }
 
 provider "google" {
-  credentials = file("/home/kyr4142/rodriguez-364418-f0b1d1a65e7c.json")
+  credentials = file("/home/kyr4142/cis-91/base/cis91-001-6107dbcf3862.json")
 
   region  = var.region
   zone    = var.zone 
