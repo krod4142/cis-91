@@ -112,6 +112,11 @@ resource "google_compute_url_map" "default" {
   default_service = google_compute_backend_service.webservice.id
 }
 
+resource "google_compute_target_http_proxy" "default" {
+  name     = "web-proxy"
+  url_map  = google_compute_url_map.default.id
+}
+
 output "external-ip" {
   value = google_compute_instance.webservers[*].network_interface[0].access_config[0].nat_ip
 }
