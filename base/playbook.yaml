@@ -175,3 +175,9 @@ keyed_groups:
     key: labels
   - prefix: tags
     key: tags
+
+- name: Create the health check file. 
+  copy:
+    dest: /var/www/html/health.html
+    content:
+    Good luck to me!
