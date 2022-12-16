@@ -80,6 +80,18 @@ resource "google_compute_health_check" "webservers" {
   }
 }
 
+resource "google_compute_instance_group" "webservers" {
+  name        = "cis91-webservers"
+  description = "Webserver instance group"
+
+  instances = google_compute_instance.webservers[*].self_link
+
+  named_port {
+    name = "http"
+    port = "80"
+  }
+}
+
 output "external-ip" {
   value = google_compute_instance.webservers[*].network_interface[0].access_config[0].nat_ip
 }
