@@ -163,9 +163,13 @@
 
 plugin: gcp_compute
 projects:
-  - your-project-here
+  - cis91-001
 auth_kind: serviceaccount
-service_account_file: /path/to/your/key/file
+service_account_file: /home/kyr4142/cis-91/base/cis91-001-6107dbcf3862.json
+  - prefix: gcp
+    key: labels
+  - prefix: tags
+    key: tags
 keyed_groups:
   - prefix: gcp
     key: labels
