@@ -181,3 +181,27 @@ keyed_groups:
     dest: /var/www/html/health.html
     content:
     Good luck to me!
+    - name: Create a ext4 filesystem for cis91-001
+      community.general.filesystem:
+        fstype: ext4
+
+    - name: Mount extra disk
+      ansible.posix.mount:
+        path: /mnt
+        src: /dev/disk/by-id/google-cis91-001
+        fstype: ext4
+        state: present  
+
+    - name: create a disk
+      google.cloud.gcp_compute_disk:
+        name: 
+        size_gb: 100
+        state: present
+        fstype: ext4
+     
+    - local_action:
+        module: gce_pd
+        instance_name: cis91-001
+        size_gb: 100
+        name: pd
+	      fstype: ext4
