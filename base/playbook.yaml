@@ -142,3 +142,32 @@
         content: "{{ hostvars[groups['gcp_name_web0'][0]]['localsettings']['content'] | b64decode }}"
       when: hostvars[groups['gcp_name_web0'][0]]['localsettings'] is defined
 
+- hosts: gcp_role_web
+  name: Install Apache on the web servers
+  become: yes
+  tasks:
+    - name: Install packages 
+      ansible.builtin.apt:
+        name:
+          - apache2
+          - php
+    - name: Update index.html so we can see the difference between hosts 
+      blockinfile:
+        path: /var/www/html/index.html
+        owner: www-data 
+        marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+        insertafter: <body> 
+        block: | 
+          <h1>This is the server {{ inventory_hostname }}</h1>
+
+
+plugin: gcp_compute
+projects:
+  - your-project-here
+auth_kind: serviceaccount
+service_account_file: /path/to/your/key/file
+keyed_groups:
+  - prefix: gcp
+    key: labels
+  - prefix: tags
+    key: tags

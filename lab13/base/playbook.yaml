@@ -30,3 +30,14 @@
         block: | 
           <h1>This is the server {{ inventory_hostname }}</h1>
           keyed_groups:
+
+plugin: gcp_compute
+projects:
+  - your-project-here
+auth_kind: serviceaccount
+service_account_file: /path/to/your/key/file
+keyed_groups:
+  - prefix: gcp
+    key: labels
+  - prefix: tags
+    key: tag
